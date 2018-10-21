@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 "psycopg2-binary" = "*"
 pip = "==18.0"
+gunicorn = "*"
+django-registration = "*"
 
 [dev-packages]
 
