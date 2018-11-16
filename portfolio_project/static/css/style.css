@@ -4,12 +4,19 @@
 
 .main_nav li {
     display: inline-block;
+    padding: 20px;
 }
 
 .main_nav li:after {
     content: ' |';
 }
 
-.main_nav ul:before {
-    content: url('/static/assets/frogicorn.png');
+img {
+    padding: 40px;
 }
+
+
+h2 {
+    margin-left: 20px;
+}
+
