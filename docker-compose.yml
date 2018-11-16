@@ -4,34 +4,18 @@ services:
   db:
     image: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
-    restart: always
-
-  nginx:
-    restart: always
-    build: ./nginx/
-    ports:
-      - "80:80"
-    volumes:
-      - static:/web/static:ro
-    depends_on:
-      - web
+      - postgres_data:/var/lib/postgresql/data
 
   web:
+    build: .
     env_file: .env
-    build: ./web
-    expose:
-      - "8000"
-    command: ./entrypoint.sh
     volumes:
-      - ./web:/src
-      - static:/src/static
+      - .:/src
+    ports:
+      - "8000:8000"
     depends_on:
       - db
-
+    command: /src/entrypoint.sh
 
 volumes:
   postgres_data:
-  static:
