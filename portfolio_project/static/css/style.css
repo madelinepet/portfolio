@@ -4,12 +4,44 @@
 
 .main_nav li {
     display: inline-block;
+    padding: 20px;
 }
 
-.main_nav li:after {
-    content: ' |';
+img {
+    padding: 30px;
+    margin-left: 35px;
+    height: 300px;
 }
 
-.main_nav ul:before {
-    content: url('/static/assets/frogicorn.png');
+
+h2 {
+    margin-left: 50px;
+    text-shadow: 2px 2px 5px grey;
+    font-family: 'Slabo 27px', serif;
+}
+
+#resume {
+    margin: 100px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+li {
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 2px 1px #888888;
+    margin: 20px;
+    margin-left: 40px;
+}
+
+li:hover {
+    box-shadow: 3px 2px #3925ec;
+}
+
+a {
+    padding: 5px;
+}
+
+a:hover {
+    cursor: pointer;
 }
