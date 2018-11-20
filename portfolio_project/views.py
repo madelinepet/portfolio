@@ -5,5 +5,5 @@ def home_view(request):
     return render(request, 'generic/home.html')
 
 
-def resume_view(request):
-    return render(request, 'generic/resume.html')
+def projects_view(request):
+    return render(request, 'generic/projects.html')
