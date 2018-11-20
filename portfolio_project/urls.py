@@ -15,10 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 # , include
-from .views import home_view
-from .views import resume_view
+from .views import home_view, projects_view
 
 urlpatterns = [
     path('', home_view, name='home'),
-    path('resume', resume_view, name='resume'),
+    path('projects', projects_view, name='projects')
 ]

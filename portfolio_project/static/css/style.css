@@ -5,11 +5,16 @@
 .main_nav li {
     display: inline-block;
     padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 2px 1px #888888;
+    margin: 20px;
+    margin-left: 40px;
 }
 
 img {
     padding: 30px;
-    margin-left: 35px;
+    margin-left: 50px;
     height: 300px;
 }
 
@@ -26,15 +31,8 @@ h2 {
     width: 100%;
 }
 
-li {
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 2px 1px #888888;
-    margin: 20px;
-    margin-left: 40px;
-}
 
-li:hover {
+.main_nav li:hover {
     box-shadow: 3px 2px #3925ec;
 }
 
@@ -44,4 +42,25 @@ a {
 
 a:hover {
     cursor: pointer;
+}
+
+#projects {
+    margin-left: 70px;
+    margin-bottom: 40px;
+    border: 1px dotted grey;
+    padding: 10px;
+    width: 65%;
+}
+
+h5 {
+    margin-left: 70px;
+}
+
+.descr {
+    margin-left: 100px;
+}
+
+p {
+    margin-left: 70px;
+    width: 65%;
 }
