@@ -1,66 +1,107 @@
-.main_nav a {
-    text-decoration: none;
+main {
+    display: block;
+    margin-left: 15vw;
+    margin-top: 5vw;
+}
+
+
+/* nav sidebar */
+.main_nav {
+    width: 15vw;
+    position: fixed;
+    z-index: 1;
+    top: 12vw;
+    left: 2vw;
+    overflow-x: hidden;
+    padding: 1vw 0;
 }
 
 .main_nav li {
-    display: inline-block;
-    padding: 20px;
-    border: 1px solid black;
+    list-style: none;
+}
+
+.main_nav li a:hover {
+    /* box-shadow: 3px 2px #AEBD38; */
+    background-color: #AEBD38;
+}
+
+.main_nav a {
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5em;
+    padding: 1vw;
+    display: block;
+    border: 1px solid #505160;
     border-radius: 5px;
-    box-shadow: 2px 1px #888888;
-    margin: 20px;
-    margin-left: 40px;
+    box-shadow: 2px 1px #598234;
 }
+/* end of nav sidebar */
 
-img {
-    padding: 30px;
-    margin-left: 50px;
-    height: 300px;
-}
-
-
-h2 {
-    margin-left: 50px;
-    text-shadow: 2px 2px 5px grey;
-    font-family: 'Slabo 27px', serif;
-}
-
-#resume {
-    margin: 100px;
-    margin-top: 50px;
-    width: 100%;
-}
-
-
-.main_nav li:hover {
-    box-shadow: 3px 2px #3925ec;
-}
 
 a {
-    padding: 5px;
+    padding: 1vw;
 }
 
 a:hover {
     cursor: pointer;
 }
 
-#projects {
-    margin-left: 70px;
-    margin-bottom: 40px;
-    border: 1px dotted grey;
-    padding: 10px;
-    width: 65%;
+img {
+    padding: 2vw;
+    height: 20vw;
+    border-radius: 12%;
+    display: inline-block;
 }
 
-h5 {
-    margin-left: 70px;
-}
-
-.descr {
-    margin-left: 100px;
+#pics {
+    margin-left: 4vw;
 }
 
 p {
-    margin-left: 70px;
+    color: #68829E;
+    margin-left: 6vw;
     width: 65%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2em;
 }
+
+h2 {
+    color: #505160;
+    margin-left: 6vw;
+    text-shadow: 2px 2px 5px #68829E;
+    font-family: 'Slabo 27px', serif;
+}
+
+h5 {
+    margin-left: 6vw;
+    font-style: italic;
+}
+
+/* IDs and classes */
+
+
+#projects {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+    box-shadow: 2px 1px #598234;
+    color: #505160;
+
+}
+
+
+.descr {
+    margin-left: 9vw;
+    padding: 0vw;
+    list-style-type: square;
+}
+
+.github {
+    padding: 0vw;
+}
+
+/* end of IDs and classes */
