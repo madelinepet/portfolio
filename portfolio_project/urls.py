@@ -19,5 +19,5 @@ from .views import home_view, projects_view
 urlpatterns = [
     path('', home_view, name='home'),
     path('projects', projects_view, name='projects'),
-    path('news/', include('portfolio_app.urls')),
+    path('app/', include('portfolio_app.urls')),
 ]

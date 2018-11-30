@@ -1,7 +1,5 @@
 from django.db import models
 
-# receiver is a decorator
-
 
 class Article(models.Model):
     """ A class representing article data from the news.py API calls
