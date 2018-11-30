@@ -2,7 +2,12 @@
 
 {% block content %}
 <h2>Data Visualizations </h2>
-<p>This view is currently under construction.</p>
+
+{% for article in articles %}
+  <h3>{{ article }}</h3>
+
+{% endfor %}
+
 <div id="pics">
 <img src="/static/assets/me.jpg" alt="me">
 <img src="/static/assets/rock.jpg" alt="Garnet Gneiss in thin section">
