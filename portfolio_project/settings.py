@@ -34,6 +34,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
 INSTALLED_APPS = [
     'portfolio_project',
+    'portfolio_app',
     'django_registration',
     'django.contrib.admin',
     'django.contrib.auth',
