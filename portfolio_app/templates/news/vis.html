@@ -11,21 +11,18 @@
         <h4>{{ indiv.title }}</h4>
       {% endif %}
 
+      {% if indiv.url is not none %}
+        <h4><a href= " {{ indiv.url }} ">{{ indiv.url }}</a></h4>
+      {% endif %}
+
       {% if indiv.description is not none %}
         <p>{{ indiv.description }}</p>
-      {% endif %}
-      
-      {% if indiv.source is not none %}
-        <h4>{{ indiv.source }}</h4>
       {% endif %}
 
       {% if indiv.date_published is not none %}
       <h4>{{ indiv.date_published }}</h4>
       {% endif %}
 
-      {% if indiv.url is not none %}
-      <h4><a href= " {{ indiv.url }} ">{{ indiv.url }}</a></h4>
-      {% endif %}
 
       {% if indiv.dom_tone is not none %}
       <h4>{{ indiv.dom_tone }}</h4>
