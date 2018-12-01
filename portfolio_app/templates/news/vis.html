@@ -1,17 +1,17 @@
 {% extends 'generic/base.html' %}
 
 {% block content %}
-<h2>Data Visualizations </h2>
-<p>This view is currently under construction.<p>
+<h2>News Feed </h2>
 
 {% for article in articles %}
-  <h3>{{ article.title }}</h3>
-  <p>{{ article.description }}</p>
-  <h4>{{ article.source }}</h4>
-  <h4>{{ article.date_published }}</h4>
-  <h4>{{ article.url }}</h4>
-  <h4>{{ article.dom_tone }}</h4>
-  <h4>{{ article.image }}</h4>
+  {% for indiv in article %}
+  <p>{{ indiv.title }}<p>
+  <p>{{ indiv.description }}</p>
+  <h4>{{ indiv.source }}</h4>
+  <h4>{{ indiv.date_published }}</h4>
+  <h4>{{ indiv.url }}</h4>
+  <h4>{{ indiv.dom_tone }}</h4>
+  {% endfor %}
 {% endfor %}
 
 
