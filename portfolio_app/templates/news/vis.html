@@ -4,19 +4,36 @@
 <h2>News Feed </h2>
 
 {% for article in articles %}
+<div id="articles">
+
   {% for indiv in article %}
-  <p>{{ indiv.title }}<p>
-  <p>{{ indiv.description }}</p>
-  <h4>{{ indiv.source }}</h4>
-  <h4>{{ indiv.date_published }}</h4>
-  <h4>{{ indiv.url }}</h4>
-  <h4>{{ indiv.dom_tone }}</h4>
+      {% if indiv.title is not none %}
+        <h4>{{ indiv.title }}</h4>
+      {% endif %}
+
+      {% if indiv.description is not none %}
+        <p>{{ indiv.description }}</p>
+      {% endif %}
+      
+      {% if indiv.source is not none %}
+        <h4>{{ indiv.source }}</h4>
+      {% endif %}
+
+      {% if indiv.date_published is not none %}
+      <h4>{{ indiv.date_published }}</h4>
+      {% endif %}
+
+      {% if indiv.url is not none %}
+      <h4><a href= " {{ indiv.url }} ">{{ indiv.url }}</a></h4>
+      {% endif %}
+
+      {% if indiv.dom_tone is not none %}
+      <h4>{{ indiv.dom_tone }}</h4>
+      {% endif %}
+
   {% endfor %}
+
+</div>
 {% endfor %}
 
-
-<div id="pics">
-<img src="/static/assets/me.jpg" alt="me">
-<img src="/static/assets/rock.jpg" alt="Garnet Gneiss in thin section">
-</div id="pics">
 {% endblock %}

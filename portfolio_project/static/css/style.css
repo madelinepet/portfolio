@@ -140,5 +140,17 @@ h5 {
     background-color: white;
 }
 
+#articles {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+    box-shadow: 2px 1px #598234;
+    color: #505160;
+}
+
 /* end of IDs and classes */
 
