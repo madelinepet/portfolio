@@ -9,7 +9,15 @@ def vis_view(request, data=None):
     is sent to the template and can be accessed there
     """
     data = get_news()
-    tone = analyze()
+    tones = []
+    for article in get_news():
+        try:
+            # TODO: instead, append tones to the get_news() dict at the correct spot
+            tones.append(analyze(article))
+
+        except:
+            tones.append(None)
+
     context = {
         'articles': []
     }
@@ -21,7 +29,8 @@ def vis_view(request, data=None):
         new_entry.append({'source': article['source']['name']})
         new_entry.append({'date_published': str(dateutil.parser.parse(article['publishedAt']))[:10]})
         new_entry.append({'url': article['url']})
-        new_entry.append(tone)
+        # append correct tone dict here
+        new_entry.append({'dom_tone': tones[data.index(article)]})
         context['articles'].append(new_entry)
 
     return render(request, 'news/vis.html', context)
