@@ -25,32 +25,29 @@ def get_link():
     return(link_list)
 
 
-def extract():
+def extract(article):
     """ Extracts the text from the urls's list returned from the get_link 
     function
     """
-    links = get_link()
-    all_articles_text = []
-    for link in links:
-        g = Goose()
-        try:
-            article = g.extract(link)
-        except goose3.network.NetworkError:
-            return False
-        all_articles_text.append(article.cleaned_text)
-    return all_articles_text
+    link = article['url']
+    g = Goose()
+    try:
+        article = g.extract(link)
+    except goose3.network.NetworkError:
+        return False
+
+    return article.cleaned_text
 
 
-def analyze():
+def analyze(article):
     """ Analyzes the text using the IBM Watson tone-analysis api
     """
-    all_articles = extract()
+    text = extract(article)
     tone_analyzer = ToneAnalyzerV3(
                 version='2017-09-21',
                 iam_apikey=os.environ.get('IAM_APIKEY'),
                 url='https://gateway.watsonplatform.net/tone-analyzer/api')
 
-    for article in all_articles:
-        return(tone_analyzer.tone(
-                {'text': article},
+    return(tone_analyzer.tone(
+                {'text': text},
                 'application/json'))
