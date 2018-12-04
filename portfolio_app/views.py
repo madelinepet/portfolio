@@ -1,5 +1,6 @@
 from django.shortcuts import render
 # from .models import Article
+import json
 import dateutil.parser
 from .news import get_news, analyze
 
@@ -12,10 +13,9 @@ def vis_view(request, data=None):
     tones = []
     for article in get_news():
         try:
-            # TODO: instead, append tones to the get_news() dict at the correct spot
             tones.append(analyze(article))
 
-        except:
+        except Exception:
             tones.append(None)
 
     context = {
@@ -30,7 +30,10 @@ def vis_view(request, data=None):
         new_entry.append({'date_published': str(dateutil.parser.parse(article['publishedAt']))[:10]})
         new_entry.append({'url': article['url']})
         # append correct tone dict here
-        new_entry.append({'dom_tone': tones[data.index(article)]})
+        all_tones_per_article = []
+        for inditone in tones[data.index(article)].result['document_tone']['tones']:
+            all_tones_per_article.append(inditone['tone_id'])
+        new_entry.append({'dom_tone': ', '.join(all_tones_per_article)})
         context['articles'].append(new_entry)
 
     return render(request, 'news/vis.html', context)
