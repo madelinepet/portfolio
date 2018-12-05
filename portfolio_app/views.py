@@ -40,3 +40,9 @@ def vis_view(request, data=None):
         context['articles'].append(new_entry)
 
     return render(request, 'news/vis.html', context)
+
+
+def maps_view(request):
+    """This is the function defining the map view.
+    """
+    return render(request, 'maps/maps.html')
