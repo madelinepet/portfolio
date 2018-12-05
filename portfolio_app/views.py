@@ -30,13 +30,13 @@ def vis_view(request, data=None):
         new_entry.append({'date_published': str(dateutil.parser.parse(article['publishedAt']))[:10]})
         new_entry.append({'url': article['url']})
         # append correct tone dict here
-        all_tones_per_article = []
-        try:
-            for inditone in tones[data.index(article)].result['document_tone']['tones']:
-                all_tones_per_article.append(inditone['tone_id'])
-            new_entry.append({'dom_tone': ', '.join(all_tones_per_article)})
-        except AttributeError:
-            pass
+        # all_tones_per_article = []
+        # try:
+        #     for inditone in tones[data.index(article)].result['document_tone']['tones']:
+        #         all_tones_per_article.append(inditone['tone_id'])
+        #     new_entry.append({'dom_tone': ', '.join(all_tones_per_article)})
+        # except AttributeError:
+        #     pass
         context['articles'].append(new_entry)
 
     return render(request, 'news/vis.html', context)
