@@ -1,4 +1,14 @@
 {% extends 'generic/base.html' %}
 {% block content %}
-    <h2> Hi from the map view</h2>
+<h2> Map view</h2>
+<div id="search">
+    <form action="maps" method="post">
+    {% csrf_token %}
+    <label for="maps">Search: </label>
+    <input name="search-map" id="search-map">
+    <input type="submit" value="OK">
+    </form>
+</div>
+    <iframe width="600" height="450" frameborder="0" style="border:0"
+    src="{{ maps }}" allowfullscreen></iframe>
 {% endblock %}
