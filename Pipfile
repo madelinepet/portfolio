@@ -16,6 +16,7 @@ jupyter = "*"
 requests = "*"
 goose3 = "*"
 watson-developer-cloud = "*"
+geocoder = "*"
 
 [dev-packages]
 

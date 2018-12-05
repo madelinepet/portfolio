@@ -3,6 +3,9 @@ from django.shortcuts import render
 import json
 import dateutil.parser
 from .news import get_news, analyze
+import os
+import geocoder
+g = geocoder.ip('me')
 
 
 def vis_view(request, data=None):
@@ -40,3 +43,17 @@ def vis_view(request, data=None):
         context['articles'].append(new_entry)
 
     return render(request, 'news/vis.html', context)
+
+
+def maps_view(request):
+    """This is the function defining the map view.
+    """
+    if request.method == 'POST':
+        map_manip = os.environ.get('MAPS_URL') + request.POST['search-map'] + '&center=' + str(g.latlng[0]) + ',' + str(g.latlng[1]) + '&zoom=13'
+
+    else: 
+        map_manip = os.environ.get('MAPS_URL') + 'pizza' + '&center=' + str(g.latlng[0]) + ',' + str(g.latlng[1]) + '&zoom=13'
+    context = {
+        'maps': map_manip
+    }
+    return render(request, 'maps/maps.html', context)
