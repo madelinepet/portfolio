@@ -4,8 +4,12 @@
 <div id="search">
     <form action="maps" method="post">
     {% csrf_token %}
-    <label for="maps">Search: </label>
+    <label for="maps">Thing: </label>
     <input name="search-map" id="search-map">
+
+    <label for="maps">Location: </label>
+    <input name="search-loc" id="search-loc">
+
     <input type="submit" value="OK">
     </form>
 </div>
