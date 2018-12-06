@@ -49,9 +49,13 @@ def maps_view(request):
     """This is the function defining the map view.
     """
     if request.method == 'POST':
-        map_manip = os.environ.get('MAPS_URL') + request.POST['search-map'] + '&center=' + request.POST['search-loc'] + '&zoom=13'
+        if ' ' in request.POST:
+            request.POST.split(' ')
+            '+'.join(request.POST)
 
-    else: 
+        map_manip = os.environ.get('MAPS_URL') + request.POST['search-map'] + request.POST['search-loc'] + '&zoom=11'
+
+    else:
         map_manip = os.environ.get('MAPS_DEFAULT') + '&center=' + str(g.latlng[0]) + ',' + str(g.latlng[1]) + '&zoom=3'
     context = {
         'maps': map_manip
