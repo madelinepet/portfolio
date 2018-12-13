@@ -1,8 +1,8 @@
 # portfolio
-A django app deployed to Heroku with an about me page, my projects, some data visualization, and links to my resume and social media accounts.
+A django app deployed to AWS with an about me page, my projects, some data visualization, and links to my resume and social media accounts.
 
 ## Deployment
-Deployed on Heroku at https://madeline-peters-portfolio.herokuapp.com/. 
+Deployed as an EC2 instance at madeline-peters.com 
 
 ## Getting Started
 To start locally, 
@@ -13,6 +13,6 @@ To start locally,
 - Open http://localhost:8000/ in your browser
 
 ## Tools
-Django, Python3, Jupyter, Heroku
+Django, Python3, Jupyter, AWS
 
 
