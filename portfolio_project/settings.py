@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cron',
+
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+CRON_CLASSES = [
+    'portfolio_app.scheduler.MyCronJob',
+]

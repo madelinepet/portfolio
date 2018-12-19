@@ -17,6 +17,7 @@ requests = "*"
 goose3 = "*"
 watson-developer-cloud = "*"
 geocoder = "*"
+django-cron = "*"
 
 [dev-packages]
 

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Article(models.Model):
+class News(models.Model):
     """ A class representing article data from the news.py API calls
     """
     title = models.CharField(max_length=200)
@@ -14,11 +14,11 @@ class Article(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        """ Returns a string representation of the Article class
+        """ Returns a string representation of the News class
         """
         return f'Title: {self.title} | Description: {self.description} | Source: {self.source} | Published: {self.date_published} | Url: {self.url} | Tones: {self.dom_tone} | Image: {self.image} | Created: {self.created}'
 
     def __repr__(self):
-        """ Returns a technical representation of the Article class
+        """ Returns a technical representation of the News class
         """
         return f'Title: {self.title} | Description: {self.description} | Source: {self.source} | Published: {self.date_published} | Url: {self.url} | Tones: {self.dom_tone} | Image: {self.image} | Created: {self.created}'
