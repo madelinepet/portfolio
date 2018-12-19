@@ -1,64 +1,37 @@
+#!/usr/bin/python
 from django_cron import CronJobBase, Schedule
 from goose3 import Goose
 import goose3
-import requests
 from watson_developer_cloud import ToneAnalyzerV3
-import os
-from .news import get_news, analyze
-import dateutil.parser
-# import psycopg2
-# from config import config
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmake
+from .news import get_news
 from .models import News
 
 
-def connect_to_db(db_path):
-    """This function creates an engine and a session, allowing 
-    sqlalchemy to connect to the db.
+import psycopg2
+
+
+def extract_text(url):
+    """Function to extract text from article
     """
-    my_engine = create_engine(db_path)
+    g = Goose()
 
-    # create a configured "Session" class
-    Session = sessionmaker(bind=my_engine)
+    try:
+        article = g.extract(url)
+    except goose3.network.NetworkError:
+        return False
 
-    # create a Session
-    return Session()
+    return article.cleaned_text
 
 
-def fetch_news(): 
-    """ Grabs the news from the api
-    """
-    data = get_news()
-    tones = []
-    for article in get_news():
-        try:
-            tones.append(analyze(article))
+def analyze_text(text):
+    tone_analyzer = ToneAnalyzerV3(
+            version='2017-09-21',
+            username='637f0158-041b-45af-99c6-1035adfcb148',
+            password='fooszZRwri2t')
 
-        except Exception:
-            tones.append(None)
-
-    context = {
-        'articles': []
-    }
-
-    for article in data:
-        new_entry = []
-        new_entry.append({'title': article['title']})
-
-        new_entry.append({'description': article['description']})
-        new_entry.append({'source': article['source']['name']})
-        new_entry.append({'date_published': str(dateutil.parser.parse(article['publishedAt']))[:10]})
-        new_entry.append({'url': article['url']})
-        # append correct tone dict here
-        all_tones_per_article = []
-        try:
-            for inditone in tones[data.index(article)].result['document_tone']['tones']:
-                all_tones_per_article.append(inditone['tone_id'])
-            new_entry.append({'dom_tone': ', '.join(all_tones_per_article)})
-        except AttributeError:
-            pass
-        context['articles'].append(new_entry)
+    return tone_analyzer.tone(
+            {'text': text},
+            'application/json')
 
 
 class MyCronJob(CronJobBase):
@@ -70,14 +43,55 @@ class MyCronJob(CronJobBase):
     code = 'portfolio_app.my_cron_job'
 
     def do(self):
-        """ Runs this fn every so often as defined above
+        """ cron job using psycopg2
         """
-        # add db path into .env in ec2 config
-        db_path = os.environ.get('DB_PATH')
+        conn = psycopg2.connect("dbname=portfolio")
+        cur = conn.cursor()
+        api_response = get_news()
 
-        session = connect_to_db(db_path)
+        parsed_article_list = []
 
-        session.query(News).delete()
-        session.commit()
-        # not finished
+        for obj in api_response:
+            parsed_article = {
+                'title': obj['title'],
+                'url': obj['url'],
+                'description': obj['description'],
+                'source': obj['source']['name'],
+                'date_published': obj['publishedAt'],
+                'image': obj['urlToImage'],
+                }
+            parsed_article_list.append(parsed_article)
 
+        analyzed_articles = []
+
+        for article in parsed_article_list:
+            url = article['url']
+
+            text = extract_text(url)
+            if not text:
+                continue
+
+            tone_analysis = analyze_text(text).get_result()
+
+            if len(tone_analysis['document_tone']['tones']):
+                dom_tone = tone_analysis['document_tone']['tones'][-1]['tone_name']
+                article = {
+                    'title': article['title'],
+                    'url': article['url'],
+                    'description': article['description'],
+                    'source': article['source'],
+                    'date_published': article['date_published'],
+                    'image': article['image'],
+                    'dom_tone': dom_tone
+                    }
+                analyzed_articles.append(article)
+
+                try:
+                    cur.execute("INSERT INTO portfolio_app_news (title, url, description, source, date_published, image, dom_tone) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING", (article['title'], article['url'], article['description'], article['source'], article['date_published'], article['image'], article['dom_tone']))
+                    conn.commit()
+                except (Exception, psycopg2.DatabaseError) as error:
+                    continue
+
+        conn.commit()
+        cur.close()
+        conn.close()
