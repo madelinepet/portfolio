@@ -4,7 +4,7 @@ from goose3 import Goose
 import goose3
 from watson_developer_cloud import ToneAnalyzerV3
 from .news import get_news
-from .models import News
+# from .models import News
 
 
 import psycopg2
