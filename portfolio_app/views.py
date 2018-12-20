@@ -3,19 +3,10 @@ from django.views.generic import ListView
 from .models import News
 import os
 import geocoder
-# from django.core.cache.backends.base import DEFAULT_TIMEOUT
-# from django.views.decorators.cache import cache_page
-# from django.core.paginator import Paginator
-# from django.conf import settings
+import dateutil.parser
 g = geocoder.ip('me')
-# import json
-# import dateutil.parser
-# from .news import get_news, analyze
-
-# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
-# @cache_page(CACHE_TTL)
 class vis_view(ListView):
     """ This is the function defining the list view of all articles. Context
     is sent to the template and can be accessed there
@@ -23,6 +14,12 @@ class vis_view(ListView):
     def get(self, request):
         # convert queryset to list so it's iterable
         articles = list(News.objects.all())
+        # fix date
+        for article in articles:
+            article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
+            # print('///////', article.date_published)
+        # import pdb; pdb.set_trace()
+
         context = {
             'articles': articles
         }

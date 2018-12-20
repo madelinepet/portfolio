@@ -12,7 +12,7 @@
           <p>{{ article.description }}</p> 
         {% endif %} 
         {% if article.date_published is not none %}
-          <h4>{{ article.date_published }}</h4> 
+          <h4 class="date-published">{{ article.date_published }}</h4> 
         {% endif %} 
         {% if article.url is not none %}
           <h4><a href= " {{ article.url }} ">{{ article.url }}</a></h4> 

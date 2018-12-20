@@ -170,5 +170,11 @@ iframe {
     margin-left: 6vw;
 }
 
+.date-published {
+    font-style: italic;
+    margin-left: 6vw;
+    font-size: 2em;
+}
+
 /* end of IDs and classes */
 
