@@ -141,3 +141,6 @@ django_heroku.settings(locals())
 CRON_CLASSES = [
     'portfolio_app.scheduler.MyCronJob',
 ]
+
+
+# CACHE_TTL = 60 * 5

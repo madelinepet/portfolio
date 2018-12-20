@@ -1,51 +1,32 @@
 from django.shortcuts import render
-# from .models import News
-import json
-import dateutil.parser
-from .news import get_news, analyze
+from django.views.generic import ListView
+from .models import News
 import os
 import geocoder
+# from django.core.cache.backends.base import DEFAULT_TIMEOUT
+# from django.views.decorators.cache import cache_page
+# from django.core.paginator import Paginator
+# from django.conf import settings
 g = geocoder.ip('me')
+# import json
+# import dateutil.parser
+# from .news import get_news, analyze
+
+# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
-def vis_view(request, data=None):
+# @cache_page(CACHE_TTL)
+class vis_view(ListView):
     """ This is the function defining the list view of all articles. Context
     is sent to the template and can be accessed there
     """
-
-    # pass in info from db
-
-    data = get_news()
-    tones = []
-    for article in get_news():
-        try:
-            tones.append(analyze(article))
-
-        except Exception:
-            tones.append(None)
-
-    context = {
-        'articles': []
-    }
-
-    for article in data:
-        new_entry = []
-        new_entry.append({'title': article['title']})
-        new_entry.append({'description': article['description']})
-        new_entry.append({'source': article['source']['name']})
-        new_entry.append({'date_published': str(dateutil.parser.parse(article['publishedAt']))[:10]})
-        new_entry.append({'url': article['url']})
-        # append correct tone dict here
-        all_tones_per_article = []
-        try:
-            for inditone in tones[data.index(article)].result['document_tone']['tones']:
-                all_tones_per_article.append(inditone['tone_id'])
-            new_entry.append({'dom_tone': ', '.join(all_tones_per_article)})
-        except AttributeError:
-            pass
-        context['articles'].append(new_entry)
-
-    return render(request, 'news/vis.html', context)
+    def get(self, request):
+        # convert queryset to list so it's iterable
+        articles = list(News.objects.all())
+        context = {
+            'articles': articles
+        }
+        return render(request, 'news/vis.html', context)
 
 
 def maps_view(request):

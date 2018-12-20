@@ -19,6 +19,7 @@ watson-developer-cloud = "*"
 geocoder = "*"
 django-cron = "*"
 sqlalchemy = "*"
+django-redis = "*"
 
 [dev-packages]
 
