@@ -1,0 +1,180 @@
+main {
+    display: block;
+    margin-left: 15vw;
+    margin-top: 5vw;
+}
+
+
+/* nav sidebar */
+.main_nav {
+    width: 13vw;
+    position: fixed;
+    z-index: 1;
+    top: 5vw;
+    left: 2vw;
+    overflow-x: hidden;
+    padding: 1vw 0;
+}
+
+.main_nav li {
+    list-style: none;
+}
+
+.main_nav li a:hover {
+    background-color: #AEBD38;
+}
+
+.main_nav a {
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2vw;
+    padding: 1vw;
+    display: block;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    box-shadow: 2px 1px #598234;
+}
+/* end of nav sidebar */
+
+
+a {
+    padding: 1vw;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+img {
+    padding: 2vw;
+    height: 20vw;
+    border-radius: 12%;
+    display: inline-block;
+}
+
+#pics {
+    margin-left: 4vw;
+}
+
+p {
+    color: #68829E;
+    margin-left: 6vw;
+    width: 65%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.5vw;
+}
+
+h2 {
+    color: #505160;
+    margin-left: 6vw;
+    text-shadow: 2px 2px 5px #68829E;
+    font-family: 'Slabo 27px', serif;
+    font-size: 4vw;
+}
+
+h4 {
+    font-size: 3vw;
+}
+
+h4 a {
+    font-size: 60%;
+}
+
+h5 {
+    margin-left: 6vw;
+    font-style: italic;
+    font-size: 2vw;
+}
+
+/* IDs and classes */
+
+
+#projects {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+    box-shadow: 2px 1px #598234;
+    color: #505160;
+
+}
+
+iframe {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+}
+
+
+.descr {
+    margin-left: 9vw;
+    padding: 0vw;
+    list-style-type: square;
+    font-size: 1.5vw;
+}
+
+.github {
+    padding: 0vw;
+}
+
+#social_media img{
+    width: 3vw;
+    height: 3vw;
+    display: inline-block;
+    padding: 0vw 0vw; 
+}
+
+#social_media {
+    margin-left: 0.3vw;
+    margin-top: 1.0vw;
+    width: 15vw;
+    margin-bottom: 0vw;
+}
+
+#social_media a {
+    border: none;
+    padding: 0vw;
+    padding-right: 1.2vw;
+    margin: 0vw;
+    box-shadow: 0vw 0vw white;
+    width: 2vw;
+    display: inline-block;
+    margin-right: 1vw;
+    margin-top: 0.2vw;
+}
+#social_media a:hover{
+    cursor: pointer;
+    background-color: white;
+}
+
+.articles {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+    box-shadow: 2px 1px #598234;
+    color: #505160;
+}
+
+#search {
+    margin-left: 6vw;
+}
+
+.date-published {
+    font-style: italic;
+    margin-left: 6vw;
+    font-size: 2em;
+}
+
+/* end of IDs and classes */
+
