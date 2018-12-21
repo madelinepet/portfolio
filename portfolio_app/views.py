@@ -9,16 +9,13 @@ g = geocoder.ip('me')
 
 class vis_view(ListView):
     """ This is the function defining the list view of all articles. Context
-    is sent to the template and can be accessed there
+    is sent to the template and can be accessed there. Convert queryset to 
+    list so it's iterable
     """
     def get(self, request):
-        # convert queryset to list so it's iterable
         articles = list(News.objects.all())
-        # fix date
         for article in articles:
             article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
-            # print('///////', article.date_published)
-        # import pdb; pdb.set_trace()
 
         context = {
             'articles': articles
