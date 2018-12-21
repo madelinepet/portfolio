@@ -4,6 +4,7 @@ from goose3 import Goose
 import goose3
 from watson_developer_cloud import ToneAnalyzerV3
 from .news import get_news
+import os
 # from .models import News
 
 
@@ -25,9 +26,9 @@ def extract_text(url):
 
 def analyze_text(text):
     tone_analyzer = ToneAnalyzerV3(
-            version='2017-09-21',
-            username='637f0158-041b-45af-99c6-1035adfcb148',
-            password='fooszZRwri2t')
+                version='2017-09-21',
+                iam_apikey=os.environ.get('IAM_APIKEY'),
+                url='https://gateway.watsonplatform.net/tone-analyzer/api')
 
     return tone_analyzer.tone(
             {'text': text},
@@ -45,7 +46,7 @@ class MyCronJob(CronJobBase):
     def do(self):
         """ cron job using psycopg2
         """
-        conn = psycopg2.connect("dbname=portfolio")
+        conn = psycopg2.connect("dbname=madelinepet")
         cur = conn.cursor()
         api_response = get_news()
 
@@ -89,7 +90,9 @@ class MyCronJob(CronJobBase):
                 try:
                     cur.execute("INSERT INTO portfolio_app_news (title, url, description, source, date_published, image, dom_tone) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING", (article['title'], article['url'], article['description'], article['source'], article['date_published'], article['image'], article['dom_tone']))
                     conn.commit()
+                    print('success')
                 except (Exception, psycopg2.DatabaseError) as error:
+                    print(error)
                     continue
 
         conn.commit()
