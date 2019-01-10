@@ -39,3 +39,9 @@ def maps_view(request):
         'maps': map_manip
     }
     return render(request, 'maps/maps.html', context)
+
+
+def game_view(request):
+    """
+    """
+    return render(request, 'game/game.html')
