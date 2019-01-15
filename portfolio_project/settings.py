@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False) == 'True'
+DEBUG = DEBUG = os.environ.get('DEBUG', False) == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
 
@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cron',
-
 ]
 
 MIDDLEWARE = [
@@ -137,10 +135,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-
-CRON_CLASSES = [
-    'portfolio_app.scheduler.MyCronJob',
-]
-
-
-# CACHE_TTL = 60 * 5
