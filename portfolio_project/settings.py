@@ -136,11 +136,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # custom
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
-CRON_CLASSES = [
-    'portfolio_app.scheduler.MyCronJob',
-]
+# CRON_CLASSES = [
+#     'portfolio_app.scheduler.MyCronJob',
+# ]
 
 
 # CACHE_TTL = 60 * 5
