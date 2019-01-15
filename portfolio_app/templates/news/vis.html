@@ -1,36 +1,27 @@
 {% extends 'generic/base.html' %}
 
 {% block content %}
-<h2>News Feed: (More analysis on this view is currently in progress) </h2>
+<h2>News Feed: </h2>
 
-{% for article in articles %}
-<div id="articles">
-
-  {% for indiv in article %}
-      {% if indiv.title is not none %}
-        <h4>{{ indiv.title }}</h4>
-      {% endif %}
-
-      {% if indiv.url is not none %}
-        <h4><a href= " {{ indiv.url }} ">{{ indiv.url }}</a></h4>
-      {% endif %}
-
-      {% if indiv.description is not none %}
-        <p>{{ indiv.description }}</p>
-      {% endif %}
-
-      {% if indiv.date_published is not none %}
-      <h4>{{ indiv.date_published }}</h4>
-      {% endif %}
-
-
-      {% if indiv.dom_tone is not none %}
-      <h4>{{ indiv.dom_tone }}</h4>
-      {% endif %}
-
-  {% endfor %}
-
+  {% for article in articles %}
+  <div class="articles">
+      {% if article.title is not none %} 
+        <h4>{{ article.title }}</h4> 
+        {% endif %} 
+        {% if article.description is not none %} 
+          <p>{{ article.description }}</p> 
+        {% endif %} 
+        {% if article.date_published is not none %}
+          <h4 class="date-published">{{ article.date_published }}</h4> 
+        {% endif %} 
+        {% if article.url is not none %}
+          <h4><a href= " {{ article.url }} ">{{ article.url }}</a></h4> 
+        {% endif %} 
+        {% if article.dom_tone is not none %}
+          <h4>{{ article.dom_tone }}</h4> 
+        {% endif %}
 </div>
 {% endfor %}
+
 
 {% endblock %}

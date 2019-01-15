@@ -102,6 +102,16 @@ h5 {
 
 }
 
+iframe {
+    margin-left: 6vw;
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+    border: 1px solid #505160;
+    border-radius: 5px;
+    padding: 1vw;
+    width: 65%;
+}
+
 
 .descr {
     margin-left: 9vw;
@@ -144,7 +154,7 @@ h5 {
     background-color: white;
 }
 
-#articles {
+.articles {
     margin-left: 6vw;
     margin-bottom: 2vw;
     margin-top: 3vw;
@@ -154,6 +164,16 @@ h5 {
     width: 65%;
     box-shadow: 2px 1px #598234;
     color: #505160;
+}
+
+#search {
+    margin-left: 6vw;
+}
+
+.date-published {
+    font-style: italic;
+    margin-left: 6vw;
+    font-size: 2em;
 }
 
 /* end of IDs and classes */
