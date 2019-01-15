@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{% static "css/../../static/css/skeleton.css" %}">
   <link rel="stylesheet" href="{% static "css/../../static/css/style.css" %}">
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="{% static "js/app.js" %}"></script>
   <title>Madeline's Portfolio</title>
 </head>
 <body>
@@ -19,7 +21,8 @@
       <ul>
         <li><a href="{% url "home" %}">Home</a></li>
         <li><a href="{% url "projects" %}">Projects</a></li>
-        <li><a href="{% url "maps" %}"> Maps! </a></li>
+        <li><a href="{% url "maps" %}"> Maps </a></li>
+        <li><a href="{% url "game" %}"> Frogs Game! </a></li>
         <li><a href="https://docs.google.com/document/d/1hdbEIQa7eU_dYa9w0Zw8rQn2B663x1KQNAALMPlDqYs/edit?usp=sharing/">Printable Resume</a></li>
         <li><a href="mailto:madelinepet@hotmail.com"> Email Me</a></li>
         <li><nav id="social_media">
