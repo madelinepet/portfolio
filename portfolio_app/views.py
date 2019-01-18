@@ -1,26 +1,27 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from .models import News
 import os
 import geocoder
-import dateutil.parser
 g = geocoder.ip('me')
+import requests
+# import dateutil.parser
+# from django.views.generic import ListView
+# from .models import News
 
 
-class vis_view(ListView):
-    """ This is the function defining the list view of all articles. Context
-    is sent to the template and can be accessed there. Convert queryset to 
-    list so it's iterable
-    """
-    def get(self, request):
-        articles = list(News.objects.all())
-        for article in articles:
-            article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
+# class vis_view(ListView):
+#     """ This is the function defining the list view of all articles. Context
+#     is sent to the template and can be accessed there. Convert queryset to 
+#     list so it's iterable
+#     """
+#     def get(self, request):
+#         articles = list(News.objects.all())
+#         for article in articles:
+#             article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
 
-        context = {
-            'articles': articles
-        }
-        return render(request, 'news/vis.html', context)
+#         context = {
+#             'articles': articles
+#         }
+#         return render(request, 'news/vis.html', context)
 
 
 def maps_view(request):
@@ -45,3 +46,17 @@ def game_view(request):
     """
     """
     return render(request, 'game/game.html')
+
+
+def nasa_view(request):
+    """ This is the function defining the nasa image of the day view
+    """
+    # import pdb; pdb.set_trace()
+    url = os.environ.get('NASA_URL')
+    response = requests.get(url)
+    data = response.json()
+    image_otd = data['url']
+    context = {
+        'nasa': image_otd
+    }
+    return render(request, 'nasa/nasa.html', context)
