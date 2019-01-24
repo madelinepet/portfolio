@@ -56,6 +56,7 @@ class nasa_view(CreateView):
     """ This is the function defining the nasa image of the day view
     """
     template_name = 'nasa/nasa.html'
+    context_object_name = 'images'
     model = Image
     form_class = ImageForm
     success_url = reverse_lazy('nasa')
@@ -70,8 +71,39 @@ class nasa_view(CreateView):
         }
         return render(request, 'nasa/nasa.html', context)
 
+    def get_form_kwargs(self):
+        """ Gets the username
+        """
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'username': self.request.user.username})
+        return kwargs
+
+    def get_queryset(self):
+        """Gets the context to send to template
+        """
+        username = self.request.user.get_username()
+        user_images = Image.objects.filter(user__username=username)
+
+        return user_images
+
     def form_valid(self, form):
-        """ Attatch a user
+        """ Adds the user to the photo on submit
         """
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    # def form_valid(self, form):
+    #     """ Attatch a user
+    #     """
+    #     form.instance.user = self.request.user
+    #     return super().form_valid(form)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # context['image'] = Image.objects.filter(
+    #     #     image__user__username=self.request.user.username)
+    #     return context
+
+    # def get_queryset(self):
+    #     return Image.objects.filter(
+    #         user__username=self.request.user.username)

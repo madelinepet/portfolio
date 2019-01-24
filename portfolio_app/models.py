@@ -32,8 +32,6 @@ class Image(models.Model):
     )
     url = models.CharField(max_length=180, default='Untitled')
 
-    date_uploaded = models.DateField(auto_now_add=True)
-
     def __repr__(self):
         return f'<URL: {self.url}>'
 

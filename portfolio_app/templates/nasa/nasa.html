@@ -12,6 +12,9 @@
 {% endif %}
 {% if user.is_authenticated %}
 <h2>Saved Images:<h2>
+{% for image in user_images %}
+<img src="{{ image.url }}">
+{% endfor %}
 {% endif %}
 {% if not user.is_authenticated %}
 <h2>Please log in to save images.<h2>
