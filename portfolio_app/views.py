@@ -61,16 +61,6 @@ class nasa_view(CreateView):
     form_class = ImageForm
     success_url = reverse_lazy('nasa')
 
-    def get(self, request):
-        url = os.environ.get('NASA_URL')
-        response = requests.get(url)
-        data = response.json()
-        image_otd = data['url']
-        context = {
-            'nasa': image_otd
-        }
-        return render(request, 'nasa/nasa.html', context)
-
     def get_form_kwargs(self):
         """ Gets the username
         """
@@ -78,32 +68,28 @@ class nasa_view(CreateView):
         kwargs.update({'username': self.request.user.username})
         return kwargs
 
-    def get_queryset(self):
-        """Gets the context to send to template
-        """
+    def get(self, request):
+        url = os.environ.get('NASA_URL')
+        response = requests.get(url)
+        data = response.json()
+        image_otd = data['url']
+
         username = self.request.user.get_username()
         user_images = Image.objects.filter(user__username=username)
-
-        return user_images
+        context = {
+            'nasa': image_otd,
+            'user_images': user_images,
+        }
+        return render(request, 'nasa/nasa.html', context)
 
     def form_valid(self, form):
-        """ Adds the user to the photo on submit
+        """ Adds the user to the image on submit
         """
+        nasa_url = os.environ.get('NASA_URL')
+        response = requests.get(nasa_url)
+        data = response.json()
+        image_otd = data['url']
         form.instance.user = self.request.user
+        form.instance.url = image_otd
+        # import pdb; pdb.set_trace()
         return super().form_valid(form)
-
-    # def form_valid(self, form):
-    #     """ Attatch a user
-    #     """
-    #     form.instance.user = self.request.user
-    #     return super().form_valid(form)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # context['image'] = Image.objects.filter(
-    #     #     image__user__username=self.request.user.username)
-    #     return context
-
-    # def get_queryset(self):
-    #     return Image.objects.filter(
-    #         user__username=self.request.user.username)

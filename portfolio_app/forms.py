@@ -1,8 +1,11 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Image
 
 
 class ImageForm(ModelForm):
+    url = forms.CharField(required=False)
+
     class Meta:
         model = Image
         fields = ['url']
