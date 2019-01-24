@@ -3,4 +3,18 @@
 {% block content %}
 <h2>NASA image of the day:<h2>
 <img src="{{ nasa }}">
+{% if user.is_authenticated %}
+<form method="post">
+  {{ form.as_p }}
+  {% csrf_token %}
+  <input type="submit" value="save">
+</form>
+{% endif %}
+{% if user.is_authenticated %}
+<h2>Saved Images:<h2>
+{% endif %}
+{% if not user.is_authenticated %}
+<h2>Please log in to save images.<h2>
+<h2><a href="{% url "login" %}"> Sign in </a></h2>
+{% endif %}
 {% endblock %}
