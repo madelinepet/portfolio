@@ -19,6 +19,9 @@
   <header>
     <nav class="main_nav">
       <ul>
+      {% if user.is_authenticated %}
+    <li>You're currently logged in as {{ user.username }}.</li>
+    {% endif %}
         {% if not user.is_authenticated %}
         <li><a href="{% url "login" %}"> Sign in </a></li>
         <li><a href="{% url "django_registration_register" %}">Signup</a></li>
@@ -28,11 +31,11 @@
         <li><a href="{% url "maps" %}"> Maps </a></li>
         <li><a href="{% url "game" %}"> Cats Game! </a></li>
         <li><a href="{% url "nasa" %}"> NASA Image of the Day</a></li>
+        <li><a href="https://docs.google.com/document/d/1hdbEIQa7eU_dYa9w0Zw8rQn2B663x1KQNAALMPlDqYs/edit?usp=sharing/">Printable Resume</a></li>
+        <li><a href="mailto:madelinepet@hotmail.com"> Email Me</a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url "logout" %}">Logout</a></li>
         {% endif %}
-        <li><a href="https://docs.google.com/document/d/1hdbEIQa7eU_dYa9w0Zw8rQn2B663x1KQNAALMPlDqYs/edit?usp=sharing/">Printable Resume</a></li>
-        <li><a href="mailto:madelinepet@hotmail.com"> Email Me</a></li>
         <li><nav id="social_media">
           <a href="https://www.linkedin.com/in/madeline-peters/"><img src="/static/assets/linkedin.svg" alt="linkedin icon"></a>
           <a href="https://www.github.com/madelinepet/"><img src="/static/assets/github.png"></a>

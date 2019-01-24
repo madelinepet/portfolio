@@ -1,8 +1,12 @@
 from django.shortcuts import render
 import os
-import geocoder
-g = geocoder.ip('me')
 import requests
+from .models import Image
+from .forms import ImageForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+# import geocoder
+# g = geocoder.ip('me')
 # import dateutil.parser
 # from django.views.generic import ListView
 # from .models import News
@@ -48,15 +52,26 @@ def game_view(request):
     return render(request, 'game/game.html')
 
 
-def nasa_view(request):
+class nasa_view(CreateView):
     """ This is the function defining the nasa image of the day view
     """
-    # import pdb; pdb.set_trace()
-    url = os.environ.get('NASA_URL')
-    response = requests.get(url)
-    data = response.json()
-    image_otd = data['url']
-    context = {
-        'nasa': image_otd
-    }
-    return render(request, 'nasa/nasa.html', context)
+    template_name = 'nasa/nasa.html'
+    model = Image
+    form_class = ImageForm
+    success_url = reverse_lazy('nasa')
+
+    def get(self, request):
+        url = os.environ.get('NASA_URL')
+        response = requests.get(url)
+        data = response.json()
+        image_otd = data['url']
+        context = {
+            'nasa': image_otd
+        }
+        return render(request, 'nasa/nasa.html', context)
+
+    def form_valid(self, form):
+        """ Attatch a user
+        """
+        form.instance.user = self.request.user
+        return super().form_valid(form)

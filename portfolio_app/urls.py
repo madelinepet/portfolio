@@ -6,5 +6,5 @@ urlpatterns = [
     # path('vis', vis_view.as_view(), name='vis'),
     path('maps', maps_view, name='maps'),
     path('game', game_view, name='game'),
-    path('nasa', nasa_view, name='nasa'),
+    path('nasa', nasa_view.as_view(), name='nasa'),
 ]
