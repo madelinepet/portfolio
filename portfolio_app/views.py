@@ -5,27 +5,9 @@ from .models import Image
 from .forms import ImageForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-# import geocoder
-# g = geocoder.ip('me')
-# import dateutil.parser
-# from django.views.generic import ListView
-# from .models import News
+import geocoder
+g = geocoder.ip('me')
 
-
-# class vis_view(ListView):
-#     """ This is the function defining the list view of all articles. Context
-#     is sent to the template and can be accessed there. Convert queryset to 
-#     list so it's iterable
-#     """
-#     def get(self, request):
-#         articles = list(News.objects.all())
-#         for article in articles:
-#             article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
-
-#         context = {
-#             'articles': articles
-#         }
-#         return render(request, 'news/vis.html', context)
 
 
 def maps_view(request):
@@ -56,22 +38,44 @@ class nasa_view(CreateView):
     """ This is the function defining the nasa image of the day view
     """
     template_name = 'nasa/nasa.html'
+    context_object_name = 'images'
     model = Image
     form_class = ImageForm
     success_url = reverse_lazy('nasa')
 
+    def get_form_kwargs(self):
+        """ Gets the username
+        """
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'username': self.request.user.username})
+        return kwargs
+
     def get(self, request):
+        """ atattches the user's images to the ctx obj to be used in template
+        """
         url = os.environ.get('NASA_URL')
         response = requests.get(url)
         data = response.json()
         image_otd = data['url']
+
+        username = self.request.user.get_username()
+        user_images = Image.objects.filter(user__username=username)
         context = {
-            'nasa': image_otd
+            'nasa': image_otd,
+            'user_images': user_images,
         }
         return render(request, 'nasa/nasa.html', context)
 
     def form_valid(self, form):
-        """ Attatch a user
+        """ Adds the user and the url to the image on submit
         """
+        nasa_url = os.environ.get('NASA_URL')
+        response = requests.get(nasa_url)
+        data = response.json()
+        image_otd = data['url']
         form.instance.user = self.request.user
+        form.instance.url = image_otd
         return super().form_valid(form)
+
+# add users field to Image model and have an array in there. If the user is in there for that image, display the image to them
+# have url be unique and if IntegrityError, just add user to array in users
