@@ -5,27 +5,9 @@ from .models import Image
 from .forms import ImageForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-# import geocoder
-# g = geocoder.ip('me')
-# import dateutil.parser
-# from django.views.generic import ListView
-# from .models import News
+import geocoder
+g = geocoder.ip('me')
 
-
-# class vis_view(ListView):
-#     """ This is the function defining the list view of all articles. Context
-#     is sent to the template and can be accessed there. Convert queryset to 
-#     list so it's iterable
-#     """
-#     def get(self, request):
-#         articles = list(News.objects.all())
-#         for article in articles:
-#             article.date_published = str(dateutil.parser.parse(article.date_published))[:10]
-
-#         context = {
-#             'articles': articles
-#         }
-#         return render(request, 'news/vis.html', context)
 
 
 def maps_view(request):
@@ -69,6 +51,8 @@ class nasa_view(CreateView):
         return kwargs
 
     def get(self, request):
+        """ atattches the user's images to the ctx obj to be used in template
+        """
         url = os.environ.get('NASA_URL')
         response = requests.get(url)
         data = response.json()
@@ -83,7 +67,7 @@ class nasa_view(CreateView):
         return render(request, 'nasa/nasa.html', context)
 
     def form_valid(self, form):
-        """ Adds the user to the image on submit
+        """ Adds the user and the url to the image on submit
         """
         nasa_url = os.environ.get('NASA_URL')
         response = requests.get(nasa_url)
@@ -91,5 +75,7 @@ class nasa_view(CreateView):
         image_otd = data['url']
         form.instance.user = self.request.user
         form.instance.url = image_otd
-        # import pdb; pdb.set_trace()
         return super().form_valid(form)
+
+# add users field to Image model and have an array in there. If the user is in there for that image, display the image to them
+# have url be unique and if IntegrityError, just add user to array in users
