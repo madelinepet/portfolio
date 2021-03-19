@@ -16,7 +16,7 @@ django-cron==0.5.1
 django-heroku==0.3.1
 django-redis==4.10.0
 django-registration==3.0
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 entrypoints==0.2.3
 future==0.17.1
 geocoder==1.38.1
