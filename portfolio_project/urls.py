@@ -16,14 +16,11 @@ Including another URLconf
 from django.urls import path, include
 # from django.conf.urls.static import static
 # from django.conf import settings
-from .views import home_view, projects_view
+from .views import home_view
 
 urlpatterns = [
     path('', home_view, name='home'),
-    path('projects', projects_view, name='projects'),
     path('app/', include('portfolio_app.urls')),
-    path('accounts/', include('django_registration.backends.activation.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

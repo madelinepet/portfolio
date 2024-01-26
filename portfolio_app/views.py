@@ -9,29 +9,16 @@ import geocoder
 g = geocoder.ip('me')
 
 
-
-def maps_view(request):
-    """This is the function defining the map view.
-    """
-    if request.method == 'POST':
-        if ' ' in request.POST:
-            request.POST.split(' ')
-            '+'.join(request.POST)
-
-        map_manip = os.environ.get('MAPS_URL') + request.POST['search-map'] + request.POST['search-loc'] + '&zoom=11'
-
-    else:
-        map_manip = os.environ.get('MAPS_DEFAULT') + '&center=' + str(g.latlng[0]) + ',' + str(g.latlng[1]) + '&zoom=3'
-    context = {
-        'maps': map_manip
-    }
-    return render(request, 'maps/maps.html', context)
-
-
 def game_view(request):
     """
     """
     return render(request, 'game/game.html')
+
+
+def feedback_view(request):
+    """
+    """
+    return render(request, 'feedback/feedback.html')
 
 
 class nasa_view(CreateView):
